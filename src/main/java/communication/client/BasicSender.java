@@ -12,21 +12,23 @@ import java.net.InetAddress;
 public class BasicSender extends Communicator {
 
     private int serverPort = 0000;
+    protected String dataToSend = "";
 
-    public BasicSender(int myPort, int serverPort) {
+    public BasicSender(int myPort, int serverPort, String dataToSend) {
         super(myPort);
         this.serverPort = serverPort;
+        this.dataToSend = dataToSend;
         inputPacket = new DatagramPacket(receivingDataBuffer, receivingDataBuffer.length);
     }
 
-    public BasicSender(int serverPort) {
+    public BasicSender(int serverPort, String dataToSend) {
         super();
         this.serverPort = serverPort;
+        this.dataToSend = dataToSend;
         inputPacket = new DatagramPacket(receivingDataBuffer, receivingDataBuffer.length);
     }
     public void send(byte[] data){
         try {
-            // TODO split data in 1024 datagrams
             sendingDataBuffer = data;
 
             // Obtain communication.client's IP address and the port
@@ -45,13 +47,15 @@ public class BasicSender extends Communicator {
         }
     }
 
-    public void waitForACK(int secNr) throws IOException {
+    public boolean waitForACK(int secNr) throws IOException {
         Data data;
 
         do{
             serverSocket.receive(inputPacket);
             data = DataUtils.parseData(new String(inputPacket.getData()));
-        }while (data.type != MsgTypes.ACK && data.secNr == secNr);
+        }while (!(data.type.equals(MsgTypes.ACK) || data.type.equals(MsgTypes.NACK)) && data.secNr == secNr);
+
+        return MsgTypes.ACK == data.type;
     }
 
 }

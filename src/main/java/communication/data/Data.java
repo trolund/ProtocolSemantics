@@ -6,9 +6,9 @@ public class Data {
 
     public int secNr = 0;
     public MsgTypes type;
-    public String data;
+    public byte[] data;
 
-    public Data(int secNr, MsgTypes type, String data) {
+    public Data(int secNr, MsgTypes type, byte[] data) {
         this.secNr = secNr;
         this.type = type;
         this.data = data;
@@ -17,14 +17,17 @@ public class Data {
     public Data() {
     }
 
-    public Data(MsgTypes type, String data) {
+    public Data(MsgTypes type, byte[] data) {
         this.type = type;
         this.data = data;
     }
 
     @Override
     public String toString() {
-        return  type + ":" + secNr + ":" + data;
+        if(data != null){
+            return  type + ":" + secNr + ":" + new String(data);
+        }
+        return  type + ":" + secNr + ":NULL" ;
     }
 
     public byte[] getBytes() {

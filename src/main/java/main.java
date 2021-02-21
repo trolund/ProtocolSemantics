@@ -14,14 +14,9 @@ public class main {
         receiverThread.start();
 
         // start the client
-        Runnable r2 = new MaybeSender(clientPort, serverPort);
+        Runnable r2 = new MaybeSender(clientPort, serverPort, "Hello world");
         Thread senderThread = new Thread(r2);
 
-        Runnable r3 = new MaybeSender(clientPort+1, serverPort);
-        Thread sender2Thread = new Thread(r2);
-
         senderThread.start();
-        // sender2Thread.start();
-
     }
 }

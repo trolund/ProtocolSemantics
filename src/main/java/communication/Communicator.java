@@ -9,6 +9,8 @@ public class Communicator {
     public final static int SERVICE_PORT=50001;
 
     protected DatagramSocket serverSocket;
+
+    // Buffersizes
     protected byte[] receivingDataBuffer = new byte[1024];
     protected byte[] sendingDataBuffer = new byte[1024];
 
