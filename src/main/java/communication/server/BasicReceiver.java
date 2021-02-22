@@ -59,11 +59,12 @@ public class BasicReceiver extends Communicator {
     }
 
     protected void ACKMsg(Data data){
-        Data ack = new Data();
-        // Set type
-        ack.type = MsgTypes.ACK;
-        // Set sec nr
-        ack.secNr = data.secNr;
+        Data ack = new Data(data.secNr, MsgTypes.ACK, null);
+        sendResponse(ack.getBytes());
+    }
+
+    protected void NACKMsg(Data data){
+        Data ack = new Data(data.secNr, MsgTypes.ACK, null);
         sendResponse(ack.getBytes());
     }
 

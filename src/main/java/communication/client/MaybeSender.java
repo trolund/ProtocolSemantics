@@ -26,7 +26,6 @@ public class MaybeSender extends BasicSender implements Runnable {
         for (byte[] packageData: allDataToSend) {
             if(packageData != null){
                 try {
-                    System.out.println(new String(packageData));
                     maybeSemantics(packageData);
                 } catch (IOException e) {
                     e.printStackTrace();

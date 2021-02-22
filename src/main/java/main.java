@@ -9,12 +9,12 @@ public class main {
         int clientPort = 5006;
 
         // start the server
-        Runnable r1 = new MaybeReceiver(serverPort);
+        Runnable r1 = new AtLeastOnceReceiver(serverPort);
         Thread receiverThread = new Thread(r1);
         receiverThread.start();
 
         // start the client
-        Runnable r2 = new MaybeSender(clientPort, serverPort, "Hello world");
+        Runnable r2 = new AtLeastOnceSender(clientPort, serverPort, "Hello world");
         Thread senderThread = new Thread(r2);
 
         senderThread.start();

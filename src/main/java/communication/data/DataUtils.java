@@ -1,17 +1,17 @@
 package communication.data;
 
 import java.nio.charset.StandardCharsets;
+import java.util.zip.Adler32;
+import java.util.zip.Checksum;
 
 public class DataUtils {
 
     public static Data parseData(String dataString) {
         String[] dataParts = dataString.split(":");
 
-        Data data = new Data();
-
-        data.type = getMsgType(dataParts[0]);
-        data.secNr = getSecNr(dataParts[1]);
-        data.data = dataParts[2].getBytes(StandardCharsets.UTF_8);
+        Data data = new Data(getSecNr(dataParts[1]),
+                getMsgType(dataParts[0]),
+                dataParts[2].getBytes(StandardCharsets.UTF_8));
 
         return data;
     }
@@ -66,6 +66,14 @@ public class DataUtils {
         }
 
         return ret;
+    }
+
+    public static long getCheckSum(Data d){
+        byte[] arr = d.getBytes();
+        Checksum checksum = new Adler32();
+        checksum.update(arr, 0, arr.length);
+        long res = checksum.getValue();
+        return res;
     }
 
 }
