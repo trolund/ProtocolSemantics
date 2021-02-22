@@ -4,7 +4,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 
-public class Communicator {
+public abstract class Communicator {
 
     public final static int SERVICE_PORT=50001;
 

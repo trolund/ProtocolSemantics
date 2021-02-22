@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 
-public class BasicSender extends Communicator {
+public abstract class BasicSender extends Communicator {
 
     private int serverPort = 0000;
     protected String dataToSend = "";
@@ -47,7 +47,7 @@ public class BasicSender extends Communicator {
         }
     }
 
-    public boolean waitForACK(int secNr) throws IOException {
+    public boolean waitForACK(long secNr) throws IOException {
         Data data;
 
         do{

@@ -1,6 +1,8 @@
 package communication.data;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.Adler32;
 import java.util.zip.Checksum;
 
@@ -45,6 +47,18 @@ public class DataUtils {
     public static byte[][] divideData(byte[] source) {
         return splitData(source, 1);
     }
+
+    public static List<DataPackage> divideDataToDataPackage(byte[] source) {
+        byte[][] res = splitData(source, 1);
+        List<DataPackage> list = new ArrayList<>();
+        long computedSec = 0;
+        for (byte[] d : res) {
+            list.add(new DataPackage(computedSec, d));
+            computedSec++;
+        }
+        return list;
+    }
+
 
     private static byte[][] splitData(byte[] source, int chunksize){
 

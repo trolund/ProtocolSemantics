@@ -4,12 +4,12 @@ import java.nio.charset.StandardCharsets;
 
 public class Data {
 
-    public int secNr = 0;
+    public long secNr = 0;
     public MsgTypes type;
     public byte[] data;
     public long checksum;
 
-    public Data(int secNr, MsgTypes type, byte[] data) {
+    public Data(long secNr, MsgTypes type, byte[] data) {
         this.secNr = secNr;
         this.type = type;
         this.data = data;
